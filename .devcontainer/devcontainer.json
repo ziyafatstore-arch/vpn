@@ -1,16 +1,15 @@
 {
   "name": "g2ray",
   "build": {
-    "dockerfile": "../Dockerfile",
-    "context": ".."
+    "dockerfile": "Dockerfile",
+    "context": "."
   },
   "features": {
     "ghcr.io/devcontainers/features/github-cli:1": {
       "version": "latest"
     }
   },
-  "postStartCommand": "bash ${containerWorkspaceFolder}/start.sh >> /tmp/start.log 2>&1 &",
-  "postAttachCommand": "bash ${containerWorkspaceFolder}/show-link.sh",
+  "postAttachCommand": "bash /usr/local/bin/start.sh",
   "portsAttributes": {
     "443": {
       "label": "g2ray-vless",
