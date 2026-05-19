@@ -1,24 +1,28 @@
 {
-  "name": "g2ray",
+  "name": "quiet-link-3f9da8",
   "build": {
     "dockerfile": "Dockerfile",
     "context": "."
   },
   "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": false
+    },
     "ghcr.io/devcontainers/features/github-cli:1": {
       "version": "latest"
     }
   },
-  "postAttachCommand": "bash /usr/local/bin/start.sh",
+  "postAttachCommand": "gh codespace ports visibility 443:public -c $CODESPACE_NAME && bash /usr/local/bin/start.sh",
   "portsAttributes": {
     "443": {
-      "label": "g2ray-vless",
+      "label": "quiet-link-3f9da8",
       "protocol": "http",
-      "onAutoForward": "silent",
-      "visibility": "public"
+      "onAutoForward": "silent"
     }
   },
-  "forwardPorts": [443],
+  "forwardPorts": [
+    443
+  ],
   "hostRequirements": {
     "cpus": 2
   }

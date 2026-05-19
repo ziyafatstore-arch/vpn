@@ -4,29 +4,13 @@
     "access": "none",
     "error": "/tmp/xray-error.log"
   },
-  "stats": {},
-  "api": {
-    "tag": "api",
-    "services": ["StatsService", "HandlerService"]
-  },
-  "policy": {
-    "levels": {
-      "0": {"handshake": 4, "connIdle": 300, "uplinkOnly": 2, "downlinkOnly": 5, "bufferSize": 512},
-      "1": {"handshake": 4, "connIdle": 300, "uplinkOnly": 2, "downlinkOnly": 5, "bufferSize": 512},
-      "2": {"handshake": 4, "connIdle": 300, "uplinkOnly": 2, "downlinkOnly": 5, "bufferSize": 512}
-    },
-    "system": {
-      "statsInboundUplink": true,
-      "statsInboundDownlink": true,
-      "statsOutboundUplink": true,
-      "statsOutboundDownlink": true
-    }
-  },
   "dns": {
     "servers": [
       {
         "address": "https://1.1.1.1/dns-query",
-        "domains": ["geosite:geolocation-!cn"],
+        "domains": [
+          "geosite:geolocation-!cn"
+        ],
         "queryStrategy": "UseIP"
       },
       "8.8.8.8",
@@ -36,13 +20,6 @@
   },
   "inbounds": [
     {
-      "tag": "api",
-      "port": 10085,
-      "listen": "127.0.0.1",
-      "protocol": "dokodemo-door",
-      "settings": {"address": "127.0.0.1"}
-    },
-    {
       "tag": "vless-in",
       "port": 443,
       "listen": "0.0.0.0",
@@ -50,22 +27,10 @@
       "settings": {
         "clients": [
           {
-            "id": "UUID_PLACEHOLDER_1",
-            "flow": "",
-            "level": 1,
-            "email": "user-20mb@g2ray"
-          },
-          {
-            "id": "UUID_PLACEHOLDER_2",
-            "flow": "",
-            "level": 2,
-            "email": "user-trial@g2ray"
-          },
-          {
-            "id": "UUID_PLACEHOLDER_3",
+            "id": "8b1a426e-564a-41cb-8c8e-eb5d49329f98",
             "flow": "",
             "level": 0,
-            "email": "user-unlimited@g2ray"
+            "email": "user@quiet-link-3f9da8"
           }
         ],
         "decryption": "none"
@@ -82,7 +47,11 @@
       },
       "sniffing": {
         "enabled": true,
-        "destOverride": ["http", "tls", "quic"],
+        "destOverride": [
+          "http",
+          "tls",
+          "quic"
+        ],
         "routeOnly": false
       }
     }
@@ -91,21 +60,55 @@
     {
       "tag": "direct",
       "protocol": "freedom",
-      "settings": {"domainStrategy": "UseIPv4"}
+      "settings": {
+        "domainStrategy": "UseIPv4"
+      }
     },
     {
       "tag": "block",
       "protocol": "blackhole",
-      "settings": {"response": {"type": "http"}}
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      }
     }
   ],
   "routing": {
     "domainStrategy": "IPIfNonMatch",
     "rules": [
-      {"type": "field", "inboundTag": ["api"], "outboundTag": "api"},
-      {"type": "field", "ip": ["geoip:private"], "outboundTag": "block"},
-      {"type": "field", "protocol": ["bittorrent"], "outboundTag": "block"},
-      {"type": "field", "domain": ["geosite:category-ads-all"], "outboundTag": "block"}
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "protocol": [
+          "bittorrent"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all"
+        ],
+        "outboundTag": "block"
+      }
     ]
+  },
+  "policy": {
+    "levels": {
+      "0": {
+        "handshake": 4,
+        "connIdle": 300,
+        "uplinkOnly": 2,
+        "downlinkOnly": 5,
+        "bufferSize": 512
+      }
+    }
   }
 }
