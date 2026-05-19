@@ -1,0 +1,5 @@
+# Runtime files — never commit these
+/tmp/
+*.log
+*.db
+g2ray-uuids.env
